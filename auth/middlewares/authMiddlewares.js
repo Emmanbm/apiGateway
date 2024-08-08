@@ -5,12 +5,13 @@ const authMiddleware = async (req, res, next) => {
         const token = req.headers?.authorization?.split(" ")[1];
         const user = decodeToken(token);
         req.auth = {
-            id: user?.id,
-            role: user?.role
+            id: user.id,
+            role: user.role
         }
         next();
     } catch (error) {
-        res.status(500).json({ error });
+        console.log(error);
+        res.status(403).json({ error: "Non autorisé" });
     }
 }
 
